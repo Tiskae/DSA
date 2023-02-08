@@ -6,7 +6,7 @@ const bubbleSort = (arr) => {
      @param {number} idx1 "index of the 1st el"
      @param {number} idx2 "index of the 2nd el"
      @param {Array} arr "the parent array"
-     */
+  */
 
   let noSwaps = false;
 
