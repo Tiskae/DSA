@@ -1,15 +1,15 @@
-/**
- * @param {Array<number>} arr "array to be sorted"
- * @returns {Array<number>} "the sorted array"
- */
 function insertionSort(arr) {
-  // Pick the 2nd el in the arr
-  // Compare with the first el, and swap if necessary
-  // Continue to the next element and if it is in the incorrect order, iterate through the sorted portion...
-  //   ... to place the elemnet in the correct order
+  // loops through the entire array, omitting the first one
+  for (var i = 1; i < arr.length; i++) {
+    const currEl = arr[i];
+
+    for (var j = i - 1; j >= 0 && arr[j] > currEl; j--) {
+      arr[j + 1] = arr[j];
+    }
+    arr[j + 1] = currEl;
+
+    console.log(arr);
+  }
 }
 
-/**
- * @type {Array<number>}
- */
-const randomArr = []
+insertionSort([89, 27, 2, 18, 21]);
