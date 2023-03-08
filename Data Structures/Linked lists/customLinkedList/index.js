@@ -13,6 +13,7 @@ linkedList = {
 }
 */
 
+/*** New node class */
 class Node {
   constructor(value) {
     this.value = value;
@@ -20,6 +21,7 @@ class Node {
   }
 }
 
+/*** New Linked List class */
 class LinkedList {
   constructor(value) {
     this.head = new Node(value);
@@ -27,6 +29,7 @@ class LinkedList {
     this.length = 1;
   }
 
+  /*** prints all the element as an array */
   printList() {
     const arr = [];
     let currNode = this.head;
@@ -38,6 +41,26 @@ class LinkedList {
     console.log(arr);
   }
 
+  /**
+   * @param {Number} index
+   * @returns {Node} the node at the given index
+   */
+  traverseToIndex(index) {
+    let currNode = this.head;
+    let counter = 0;
+
+    while (counter < index) {
+      currNode = currNode.next;
+      counter++;
+    }
+
+    return currNode;
+  }
+
+  /**
+   * appends value to the linked list
+   * @param {Number} value
+   */
   append(value) {
     const newNode = new Node(value);
     this.tail.next = newNode;
@@ -45,6 +68,10 @@ class LinkedList {
     this.length++;
   }
 
+  /**
+   * prepends value to the linked list
+   * @param {Number} value
+   */
   prepend(value) {
     const newNode = new Node(value);
     newNode.next = this.head;
@@ -53,8 +80,13 @@ class LinkedList {
     this.length++;
   }
 
+  /**
+   * inserts value at the given index
+   * @param {Number} index
+   * @param {any} value
+   */
   insert(index, value) {
-    if (!(typeof index === "number" && value) || index >= this.length) {
+    if (!index || !value) {
       return console.log("Please provide the right arguments");
     }
 
@@ -62,54 +94,57 @@ class LinkedList {
     if (index === 0) {
       this.prepend(value);
     }
+
     // use append method
-    else if (index === this.length - 1) {
+    else if (index >= this.length - 1) {
       this.append(value);
-      console.log("Append mi okoko");
-    } else {
-      const newLinkedList = {
-        head: new Node(this.head.value),
-        tail: new Node(this.head.value),
-        length: 1,
-      };
-      let currParentNode = this.head.next;
-      let currNode = newLinkedList.head;
-      for (let i = 1; i < this.length; i++) {
-        // Index to insert value
-        if (i === index) {
-          currNode.next = new Node(value);
-          currNode = currNode.next;
-          newLinkedList.length++;
-        }
-
-        // Copying old linked list items into new one
-        currNode.next = new Node(currParentNode.value);
-
-        // Last node
-        if (i === this.length - 1) {
-          newLinkedList.tail = new Node(currParentNode.value);
-        }
-
-        // Updating stuffs for next iteration
-        currParentNode = currParentNode.next;
-        currNode = currNode.next;
-        newLinkedList.length++;
-      }
-      this.head = newLinkedList.head;
-      this.tail = newLinkedList.tail;
-      this.length = newLinkedList.length;
     }
+
+    // insert
+    else {
+      const newNode = new Node(value);
+      const leader = this.traverseToIndex(index);
+      const holdingPointer = leader.next;
+      leader.next = newNode;
+      newNode.next = holdingPointer;
+    }
+
+    this.length++;
+  }
+
+  /**
+   * removes the node at the given index
+   * @param {Number} index
+   */
+  remove(index) {
+    if (index >= this.length) {
+      return console.log("Index out of list range");
+    }
+
+    if (index === 0) {
+      this.head = this.head.next;
+    } else {
+      const leader = this.traverseToIndex(index - 1);
+      const unwantedNode = leader.next;
+      leader.next = unwantedNode.next;
+    }
+
+    this.length--;
+    myLinkedList.printList();
   }
 }
 
-// 10 --> 5 --> 16
-const myLinkedList = new LinkedList(10);
+const myLinkedList = new LinkedList(4);
 console.clear();
 myLinkedList.append(5);
 // myLinkedList.append(16);
 // myLinkedList.append(1);
-myLinkedList.prepend(0);
-myLinkedList.prepend(-100);
-myLinkedList.prepend("Who's got za keys to ma BMW?");
-myLinkedList.insert(1, "Imposter");
+myLinkedList.prepend(3);
+myLinkedList.prepend(2);
+myLinkedList.prepend(1);
+myLinkedList.insert(4, "Imposter");
+myLinkedList.insert(5, "Zoyah");
 myLinkedList.printList();
+myLinkedList.remove(0);
+// myLinkedList.printList();
+console.log(myLinkedList.length);
