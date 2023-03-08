@@ -92,12 +92,12 @@ class LinkedList {
 
     // use prepend method
     if (index === 0) {
-      this.prepend(value);
+      return this.prepend(value);
     }
 
     // use append method
     else if (index >= this.length - 1) {
-      this.append(value);
+      return this.append(value);
     }
 
     // insert
