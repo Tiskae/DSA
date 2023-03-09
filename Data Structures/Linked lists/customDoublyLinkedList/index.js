@@ -114,6 +114,7 @@ class DoublyLinkedList {
 
     if (index === 0) {
       this.head = this.head.next;
+      this.head.prev = null;
     } else {
       const leader = this.traverseToIndex(index - 1);
       const unwantedNode = leader.next;
