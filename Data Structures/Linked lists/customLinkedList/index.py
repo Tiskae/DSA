@@ -50,11 +50,9 @@ class LinkedList:
             raise IndexError("List index out of range")
 
         if index == 0:
-            print("Prepended")
             return self.prepend(value)
 
         if index == self.length - 1:
-            print("Appended")
             return self.append(value)
 
         new_node = Node(value)
@@ -62,7 +60,6 @@ class LinkedList:
         holding_pointer = leader.next
         leader.next = new_node
         new_node.next = holding_pointer
-        print("Inserted")
 
         self.length += 1
 

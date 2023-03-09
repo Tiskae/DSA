@@ -53,11 +53,9 @@ class LinkedList:
             raise IndexError("List index out of range")
 
         if index == 0:
-            print("Prepended")
             return self.prepend(value)
 
         if index == self.length - 1:
-            print("Appended")
             return self.append(value)
 
         leader = self.traverse_to_index(index - 1)
@@ -67,7 +65,6 @@ class LinkedList:
         follower.prev = new_node
         new_node.prev = leader
         new_node.next = follower
-        print("Inserted")
 
         self.length += 1
 
@@ -97,7 +94,5 @@ my_linked_list.prepend("you")
 my_linked_list.prepend("love")
 my_linked_list.prepend("I")
 my_linked_list.insert(6, "not")
-print(my_linked_list.length)
 my_linked_list.remove(4)
 my_linked_list.print_list()
-print(my_linked_list.traverse_to_index(4).prev.value)

@@ -137,8 +137,6 @@ class LinkedList {
 const myLinkedList = new LinkedList(4);
 console.clear();
 myLinkedList.append(5);
-// myLinkedList.append(16);
-// myLinkedList.append(1);
 myLinkedList.prepend(3);
 myLinkedList.prepend(2);
 myLinkedList.prepend(1);
@@ -146,5 +144,4 @@ myLinkedList.insert(4, "Imposter");
 myLinkedList.insert(5, "Zoyah");
 myLinkedList.printList();
 myLinkedList.remove(0);
-// myLinkedList.printList();
 console.log(myLinkedList.length);
