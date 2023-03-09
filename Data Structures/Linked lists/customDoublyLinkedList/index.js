@@ -1,28 +1,14 @@
-/*
-linkedList = {
-    head: {
-        value: 10,
-        next: {
-            value: 5,
-            next: {
-                value: 16,
-                next: null
-            }
-        }
-    }
-}
-*/
-
 /*** New node class */
 class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }
 
 /*** New Linked List class */
-class LinkedList {
+class DoublyLinkedList {
   constructor(value) {
     this.head = new Node(value);
     this.tail = this.head;
@@ -63,6 +49,7 @@ class LinkedList {
    */
   append(value) {
     const newNode = new Node(value);
+    newNode.prev = this.tail;
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
@@ -75,6 +62,8 @@ class LinkedList {
   prepend(value) {
     const newNode = new Node(value);
     newNode.next = this.head;
+
+    this.head.prev = newNode;
 
     this.head = newNode;
     this.length++;
@@ -104,9 +93,11 @@ class LinkedList {
     else {
       const newNode = new Node(value);
       const leader = this.traverseToIndex(index);
-      const holdingPointer = leader.next;
+      const follower = leader.next;
       leader.next = newNode;
-      newNode.next = holdingPointer;
+      follower.prev = newNode;
+      newNode.prev = leader;
+      newNode.next = follower;
     }
 
     this.length++;
@@ -123,25 +114,30 @@ class LinkedList {
 
     if (index === 0) {
       this.head = this.head.next;
+      this.head.prev = null;
     } else {
       const leader = this.traverseToIndex(index - 1);
       const unwantedNode = leader.next;
       leader.next = unwantedNode.next;
+      if (index !== this.length - 1) {
+        leader.next.prev = leader;
+      }
     }
 
     this.length--;
-    myLinkedList.printList();
+    // this.printList();
   }
 }
 
-const myLinkedList = new LinkedList(4);
+const myDoublyLinkedList = new DoublyLinkedList(4);
 console.clear();
-myLinkedList.append(5);
-myLinkedList.prepend(3);
-myLinkedList.prepend(2);
-myLinkedList.prepend(1);
-myLinkedList.insert(4, "Imposter");
-myLinkedList.insert(5, "Zoyah");
-myLinkedList.printList();
-myLinkedList.remove(0);
-console.log(myLinkedList.length);
+myDoublyLinkedList.append(5);
+myDoublyLinkedList.prepend(3);
+myDoublyLinkedList.prepend(2);
+myDoublyLinkedList.prepend(1);
+myDoublyLinkedList.insert(4, "Imposter");
+myDoublyLinkedList.insert(3, "Zoyah");
+myDoublyLinkedList.prepend("To be removed");
+myDoublyLinkedList.remove(7);
+myDoublyLinkedList.printList();
+console.dir(myDoublyLinkedList, { depth: 10 });
