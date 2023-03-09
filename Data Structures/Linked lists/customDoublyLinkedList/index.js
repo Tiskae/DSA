@@ -119,7 +119,9 @@ class DoublyLinkedList {
       const leader = this.traverseToIndex(index - 1);
       const unwantedNode = leader.next;
       leader.next = unwantedNode.next;
-      leader.next.prev = leader;
+      if (index !== this.length - 1) {
+        leader.next.prev = leader;
+      }
     }
 
     this.length--;
@@ -130,15 +132,12 @@ class DoublyLinkedList {
 const myDoublyLinkedList = new DoublyLinkedList(4);
 console.clear();
 myDoublyLinkedList.append(5);
-// myDoublyLinkedList.append(16);
-// myDoublyLinkedList.append(1);
 myDoublyLinkedList.prepend(3);
 myDoublyLinkedList.prepend(2);
 myDoublyLinkedList.prepend(1);
 myDoublyLinkedList.insert(4, "Imposter");
 myDoublyLinkedList.insert(3, "Zoyah");
 myDoublyLinkedList.prepend("To be removed");
-myDoublyLinkedList.remove(1);
+myDoublyLinkedList.remove(7);
 myDoublyLinkedList.printList();
 console.dir(myDoublyLinkedList, { depth: 10 });
-// myDoublyLinkedList.printList();
