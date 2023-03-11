@@ -127,6 +127,32 @@ class DoublyLinkedList {
     this.length--;
     // this.printList();
   }
+
+  /**
+   * reverse the linked list
+   * @returns the reversed list as an array
+   */
+  reverse() {
+    if (this.length <= 1) {
+      return this.head;
+    }
+
+    let leadPointer = this.head;
+    let lagPointer = this.tail;
+
+    const timesToIterate = Math.floor(this.length / 2);
+
+    for (let i = 0; i < timesToIterate; i++) {
+      const temp = leadPointer.value;
+      leadPointer.value = lagPointer.value;
+      lagPointer.value = temp;
+
+      leadPointer = leadPointer.next;
+      lagPointer = lagPointer.prev;
+    }
+
+    return this.printList();
+  }
 }
 
 const myDoublyLinkedList = new DoublyLinkedList(4);
@@ -136,8 +162,8 @@ myDoublyLinkedList.prepend(3);
 myDoublyLinkedList.prepend(2);
 myDoublyLinkedList.prepend(1);
 myDoublyLinkedList.insert(4, "Imposter");
-myDoublyLinkedList.insert(3, "Zoyah");
-myDoublyLinkedList.prepend("To be removed");
-myDoublyLinkedList.remove(7);
+myDoublyLinkedList.insert(5, "Zoyah");
 myDoublyLinkedList.printList();
-console.dir(myDoublyLinkedList, { depth: 10 });
+// myDoublyLinkedList.remove(5);
+myDoublyLinkedList.reverse();
+console.log(myDoublyLinkedList.traverseToIndex(3).prev.value);

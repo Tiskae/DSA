@@ -130,7 +130,31 @@ class LinkedList {
     }
 
     this.length--;
-    myLinkedList.printList();
+  }
+
+  /**
+   * reverse the linked list
+   * @returns the reversed list as an array
+   */
+  reverse() {
+    if (this.length <= 1) {
+      return this.head;
+    }
+
+    let leadPointer = this.head;
+    let lagPointer = this.tail;
+
+    let timesToIterate = Math.floor(this.length / 2);
+    for (let i = 0; i < timesToIterate; i++) {
+      const leadPointerValue = leadPointer.value;
+      leadPointer.value = lagPointer.value;
+      lagPointer.value = leadPointerValue;
+
+      leadPointer = leadPointer.next;
+      lagPointer = this.traverseToIndex(this.length - i - 2);
+    }
+
+    return this.printList();
   }
 }
 
@@ -143,5 +167,5 @@ myLinkedList.prepend(1);
 myLinkedList.insert(4, "Imposter");
 myLinkedList.insert(5, "Zoyah");
 myLinkedList.printList();
-myLinkedList.remove(0);
-console.log(myLinkedList.length);
+// myLinkedList.remove(5);
+myLinkedList.reverse();
