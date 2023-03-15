@@ -55,7 +55,7 @@ class BinarySearchTree {
 
     let currNode = this.root;
 
-    // Traverse through the right path
+    // Traverse through the correct path
     while (currNode.left || currNode.right) {
       // Node without children
       if (
@@ -90,19 +90,9 @@ class BinarySearchTree {
   }
 
   lookup(value) {
-    if (!this.root) {
-      return null;
-    }
-
     let currNode = this.root;
-    while (currNode || currNode) {
-      //   if (
-      //     (value > currNode.value && !currNode.right) ||
-      //     (value < currNode.value && !currNode.left)
-      //   ) {
-      //     break;
-      //   }
 
+    while (currNode) {
       if (value === currNode.value) {
         return currNode;
       } else if (value > currNode.value) {
@@ -114,29 +104,101 @@ class BinarySearchTree {
 
     return null;
   }
+
+  lookupParent(value) {
+    let currNode = this.root;
+
+    while (currNode.left || currNode.right) {
+      if (value === currNode.right?.value || value === currNode.left?.value) {
+        return currNode;
+      } else if (value > currNode.value) {
+        currNode = currNode.right;
+      } else {
+        currNode = currNode.left;
+      }
+    }
+
+    return null;
+  }
+
+  remove(value) {
+    console.log("Alaye, the thing no gree remove");
+
+    if (!this.root) {
+      return null;
+    }
+
+    let parentNode = this.lookupParent(value);
+
+    // console.log(parentNode);
+
+    // Value not found in tree
+    if (parentNode === null) {
+      return null;
+    }
+
+    // Leaf node
+    if (parentNode.right.value === value) {
+      parentNode.right = null;
+    } else if (parentNode.left.value === value) {
+      parentNode.left = null;
+    }
+
+    //
+
+    // console.log(currNode);
+  }
 }
 
-//        9
-//      /  \
-//     /    \
-//    4     20
-//   /\     /\
-//  /  \   /  \
-// 1   6  15  170
+//            _____ 9 _____
+//           /              \
+//          /                \
+//         5                 20
+//       /   \             /     \
+//      /     \           /       \
+//     2       6         15       170
+//    /\       /\        /\       / \
+//   /  \     /  \      /  \     /   \
+//  1    3  5    7    12  17   120  401
 
 console.clear();
 const myBinarySearchTree = new BinarySearchTree();
 myBinarySearchTree.insert(9);
 myBinarySearchTree.insert(20);
-myBinarySearchTree.insert(4);
-myBinarySearchTree.insert(1);
+myBinarySearchTree.insert(5);
+myBinarySearchTree.insert(2);
 myBinarySearchTree.insert(6);
 myBinarySearchTree.insert(15);
 myBinarySearchTree.insert(170);
+myBinarySearchTree.insert(1);
+myBinarySearchTree.insert(3);
+myBinarySearchTree.insert(5);
+myBinarySearchTree.insert(7);
+myBinarySearchTree.insert(12);
+myBinarySearchTree.insert(17);
+myBinarySearchTree.insert(120);
+myBinarySearchTree.insert(401);
+// myBinarySearchTree.remove(4);
+
+// myBinarySearchTree.insert(24);
+// myBinarySearchTree.insert(15);
+// myBinarySearchTree.insert(62);
+// myBinarySearchTree.insert(5);
+// myBinarySearchTree.insert(45);
+// myBinarySearchTree.insert(90);
+// myBinarySearchTree.insert(8);
+// myBinarySearchTree.insert(73);
+// myBinarySearchTree.insert(94);
+// myBinarySearchTree.insert(6);
+// myBinarySearchTree.insert(86);
+// myBinarySearchTree.insert(99);
+// myBinarySearchTree.insert(80);
+// myBinarySearchTree.insert(87);
+// myBinarySearchTree.insert(77);
 
 // console.dir(traverse(myBinarySearchTree.root), { depth: 10 });
 
-console.dir(myBinarySearchTree.lookup(100), { depth: 10 });
+console.dir(myBinarySearchTree, { depth: 10 });
 
 function traverse(node) {
   const tree = { value: node.value };
