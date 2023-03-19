@@ -38,3 +38,7 @@ function fibonacciRecursive(index) {
 }
 
 console.log(fibonacciRecursive(9));
+const letters = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
+const numbers = [1, 5, 23, 11, 45, 7, 8];
+console.dir(letters.sort());
+console.dir(numbers.sort());
